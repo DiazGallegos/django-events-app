@@ -1,0 +1,46 @@
+
+{% extends 'base.html' %}
+
+{% block title %}Agenda de Eventos{% endblock %}
+
+{% block content %}
+<h1 class="h2">Gestión de Agenda de Eventos</h1>
+<p>Administra la agenda de los eventos.</p>
+
+<a href="{% url 'agenda_create' %}" class="btn btn-primary mb-3"><i class="fas fa-plus"></i> Crear Actividad</a>
+
+<div class="card">
+    <div class="card-header">
+        <h5 class="card-title">Listado de Actividades</h5>
+    </div>
+    <div class="card-body">
+        <table class="table table-striped">
+            <thead>
+                <tr>
+                    <th>Evento</th>
+                    <th>Actividad</th>
+                    <th>Hora de Inicio</th>
+                    <th>Hora de Fin</th>
+                    <th>Ubicación</th>
+                    <th>Acciones</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for agenda in object_list %}
+                    <tr>
+                        <td>{{ agenda.evento }}</td>
+                        <td>{{ agenda.actividad }}</td>
+                        <td>{{ agenda.hora_inicio }}</td>
+                        <td>{{ agenda.hora_fin }}</td>
+                        <td>{{ agenda.ubicacion }}</td>
+                        <td>
+                            <a href="{% url 'agenda_update' agenda.pk %}" class="btn btn-warning btn-sm"><i class="fas fa-pencil-alt"></i></a>
+                            <a href="{% url 'agenda_delete' agenda.pk %}" class="btn btn-danger btn-sm"><i class="fas fa-trash"></i></a>
+                        </td>
+                    </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+    </div>
+</div>
+{% endblock %}

@@ -1,0 +1,85 @@
+
+{% extends 'base.html' %}
+
+{% block title %}Inicio - Gestión de Eventos{% endblock %}
+
+{% block content %}
+<div class="jumbotron">
+    <h1 class="display-4">Bienvenido a la Gestión de Eventos</h1>
+    <p class="lead">Este sistema te permite administrar todos los aspectos de tus eventos, desde la creación y gestión de los mismos, hasta el control de participantes, tickets y patrocinadores.</p>
+    <hr class="my-4">
+    <p>Utiliza la barra de navegación para acceder a las diferentes secciones.</p>
+</div>
+
+<div class="row">
+    <div class="col-md-4">
+        <div class="card">
+            <div class="card-body">
+                <h5 class="card-title">Eventos</h5>
+                <p class="card-text">Crea, edita y elimina eventos.</p>
+                <a href="{% url 'evento_list' %}" class="btn btn-primary">Ir a Eventos</a>
+            </div>
+        </div>
+    </div>
+    <div class="col-md-4">
+        <div class="card">
+            <div class="card-body">
+                <h5 class="card-title">Participantes</h5>
+                <p class="card-text">Administra la información de los participantes.</p>
+                <a href="{% url 'participante_list' %}" class="btn btn-primary">Ir a Participantes</a>
+            </div>
+        </div>
+    </div>
+    <div class="col-md-4">
+        <div class="card">
+            <div class="card-body">
+                <h5 class="card-title">Tickets</h5>
+                <p class="card-text">Gestiona los tickets de los eventos.</p>
+                <a href="{% url 'ticket_list' %}" class="btn btn-primary">Ir a Tickets</a>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="row mt-4">
+    <div class="col-md-4">
+        <div class="card">
+            <div class="card-body">
+                <h5 class="card-title">Agenda de Eventos</h5>
+                <p class="card-text">Gestiona la agenda de los eventos.</p>
+                <a href="{% url 'agenda_evento_list' %}" class="btn btn-primary">Ir a Agenda</a>
+            </div>
+        </div>
+    </div>
+    <div class="col-md-4">
+        <div class="card">
+            <div class="card-body">
+                <h5 class="card-title">Patrocinadores</h5>
+                <p class="card-text">Gestiona los patrocinadores de los eventos.</p>
+                <a href="{% url 'patrocinador_list' %}" class="btn btn-primary">Ir a Patrocinadores</a>
+            </div>
+        </div>
+    </div>
+    <div class="col-md-4">
+        <div class="card">
+            <div class="card-body">
+                <h5 class="card-title">Evento-Patrocinador</h5>
+                <p class="card-text">Gestiona la relación entre eventos y patrocinadores.</p>
+                <a href="{% url 'evento_patrocinador_list' %}" class="btn btn-primary">Ir a Relaciones</a>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="row mt-4">
+    <div class="col-md-4">
+        <div class="card">
+            <div class="card-body">
+                <h5 class="card-title">Feedback de Eventos</h5>
+                <p class="card-text">Gestiona el feedback de los eventos.</p>
+                <a href="{% url 'feedback_evento_list' %}" class="btn btn-primary">Ir a Feedback</a>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}

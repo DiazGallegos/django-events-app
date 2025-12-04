@@ -1,0 +1,11 @@
+
+{% extends 'gestion_eventos/base.html' %}
+
+{% block content %}
+  <h2>Eliminar agenda de evento</h2>
+  <p>¿Estás seguro de que quieres eliminar la sesión {{ object.nombre_sesion }}?</p>
+  <form method="post">
+    {% csrf_token %}
+    <button type="submit">Confirmar</button>
+  </form>
+{% endblock %}

@@ -1,0 +1,41 @@
+
+{
+    "customizations": {
+        "codespaces": {
+            "openFiles": [
+                "mysite/settings.py",
+                "gestion_eventos/models.py",
+                "gestion_eventos/views.py",
+                "gestion_eventos/urls.py"
+            ]
+        },
+        "vscode": {
+            "extensions": [
+                "ms-python.python",
+                "ms-python.vscode-pylance",
+                "ms-python.debugpy"
+            ],
+            "settings": {
+                "python.pythonPath": "/usr/bin/python3",
+                "python.linting.pylintEnabled": true,
+                "python.linting.enabled": true,
+                "python.testing.unittestEnabled": true
+            }
+        }
+    },
+    "portsAttributes": {
+        "8000": {
+            "label": "Application",
+            "onAutoForward": "openPreview"
+        }
+    },
+    "forwardPorts": [8000],
+    "postCreateCommand": "python3 -m venv .venv && source .venv/bin/activate && pip install -r mysite/requirements.txt",
+    "runServices": {
+        "web": {
+            "cmd": "./devserver.sh",
+            "port": 8000,
+            "name": "web"
+        }
+    }
+}

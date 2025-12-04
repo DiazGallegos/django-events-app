@@ -1,0 +1,266 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Gestión de Agenda</title>
+    <!-- Bootstrap CSS -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <!-- Font Awesome CSS -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <!-- Custom CSS -->
+    <style>
+        body { background-color: #f8f9fa; }
+        .sidebar { height: 100vh; background-color: #343a40; padding-top: 20px; }
+        .sidebar .nav-link { color: #adb5bd !important; }
+        .sidebar .nav-link.active { color: #ffffff !important; font-weight: bold; }
+        .sidebar .nav-link:hover { color: #ffffff !important; }
+        .main-content { padding: 20px; }
+        .btn-crear { margin-bottom: 20px; }
+    </style>
+</head>
+<body>
+    <div class="d-flex">
+        <!-- Sidebar -->
+        <nav class="sidebar d-none d-md-block">
+            <div class="sidebar-sticky">
+                <ul class="nav flex-column">
+                    <li class="nav-item"><a class="nav-link" href="index.html"><i class="fas fa-home"></i> Dashboard</a></li>
+                    <li class="nav-item"><a class="nav-link" href="eventos.html"><i class="fas fa-calendar-alt"></i> Eventos</a></li>
+                    <li class="nav-item"><a class="nav-link" href="participantes.html"><i class="fas fa-users"></i> Participantes</a></li>
+                    <li class="nav-item"><a class="nav-link" href="tickets.html"><i class="fas fa-ticket-alt"></i> Tickets</a></li>
+                    <li class="nav-item"><a class="nav-link active" href="agenda.html"><i class="fas fa-clipboard-list"></i> Agenda</a></li>
+                    <li class="nav-item"><a class="nav-link" href="patrocinadores.html"><i class="fas fa-briefcase"></i> Patrocinadores</a></li>
+                    <li class="nav-item"><a class="nav-link" href="relaciones.html"><i class="fas fa-handshake"></i> Relaciones</a></li>
+                    <li class="nav-item"><a class="nav-link" href="feedback.html"><i class="fas fa-star"></i> Feedback</a></li>
+                </ul>
+            </div>
+        </nav>
+
+        <!-- Main Content -->
+        <main class="main-content flex-grow-1">
+            <div class="container-fluid">
+                <h1 class="h2">Gestión de Agenda de Eventos</h1>
+                <p>Administra la agenda de cada evento.</p>
+
+                <button class="btn btn-primary btn-crear" data-bs-toggle="modal" data-bs-target="#createModal"><i class="fas fa-plus"></i> Crear Actividad</button>
+
+                <!-- Agenda Table -->
+                <div class="card">
+                    <div class="card-header">
+                        <h5 class="card-title">Listado de Actividades</h5>
+                    </div>
+                    <div class="card-body">
+                        <table class="table table-striped">
+                            <thead>
+                                <tr>
+                                    <th>Evento</th>
+                                    <th>Actividad</th>
+                                    <th>Hora de Inicio</th>
+                                    <th>Hora de Fin</th>
+                                    <th>Ubicación</th>
+                                    <th>Acciones</th>
+                                </tr>
+                            </thead>
+                            <tbody id="agenda-table-body">
+                                <!-- JS will populate this -->
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+        </main>
+    </div>
+
+    <!-- Create Modal -->
+    <div class="modal fade" id="createModal" tabindex="-1">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title">Crear Nueva Actividad</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+                </div>
+                <div class="modal-body">
+                    <form id="create-form">
+                        <div class="mb-3">
+                            <label for="create-evento" class="form-label">Evento</label>
+                            <select class="form-control" id="create-evento" required></select>
+                        </div>
+                        <div class="mb-3">
+                            <label for="create-actividad" class="form-label">Actividad</label>
+                            <input type="text" class="form-control" id="create-actividad" required>
+                        </div>
+                        <div class="mb-3">
+                            <label for="create-hora_inicio" class="form-label">Hora de Inicio</label>
+                            <input type="time" class="form-control" id="create-hora_inicio" required>
+                        </div>
+                        <div class="mb-3">
+                            <label for="create-hora_fin" class="form-label">Hora de Fin</label>
+                            <input type="time" class="form-control" id="create-hora_fin" required>
+                        </div>
+                        <div class="mb-3">
+                            <label for="create-ubicacion" class="form-label">Ubicación</label>
+                            <input type="text" class="form-control" id="create-ubicacion">
+                        </div>
+                        <button type="submit" class="btn btn-primary">Guardar</button>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+    
+    <!-- Edit Modal -->
+    <div class="modal fade" id="editModal" tabindex="-1">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title">Editar Actividad</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+                </div>
+                <div class="modal-body">
+                    <form id="edit-form">
+                        <input type="hidden" id="edit-id">
+                        <div class="mb-3">
+                            <label for="edit-evento" class="form-label">Evento</label>
+                            <select class="form-control" id="edit-evento" required></select>
+                        </div>
+                        <div class="mb-3">
+                            <label for="edit-actividad" class="form-label">Actividad</label>
+                            <input type="text" class="form-control" id="edit-actividad" required>
+                        </div>
+                        <div class="mb-3">
+                            <label for="edit-hora_inicio" class="form-label">Hora de Inicio</label>
+                            <input type="time" class="form-control" id="edit-hora_inicio" required>
+                        </div>
+                        <div class="mb-3">
+                            <label for="edit-hora_fin" class="form-label">Hora de Fin</label>
+                            <input type="time" class="form-control" id="edit-hora_fin" required>
+                        </div>
+                        <div class="mb-3">
+                            <label for="edit-ubicacion" class="form-label">Ubicación</label>
+                            <input type="text" class="form-control" id="edit-ubicacion">
+                        </div>
+                        <button type="submit" class="btn btn-primary">Actualizar</button>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Bootstrap JS -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+    <!-- Firebase SDK -->
+    <script src="https://www.gstatic.com/firebasejs/8.10.0/firebase-app.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/8.10.0/firebase-firestore.js"></script>
+
+    <script>
+        const firebaseConfig = {
+            apiKey: "YOUR_API_KEY",
+            authDomain: "YOUR_AUTH_DOMAIN",
+            projectId: "YOUR_PROJECT_ID",
+            storageBucket: "YOUR_STORAGE_BUCKET",
+            messagingSenderId: "YOUR_MESSAGING_SENDER_ID",
+            appId: "YOUR_APP_ID"
+        };
+
+        if (!firebase.apps.length) {
+            firebase.initializeApp(firebaseConfig);
+        }
+        const db = firebase.firestore();
+        const agendaCollection = db.collection("agenda");
+        const eventosCollection = db.collection("eventos");
+
+        const createForm = document.getElementById("create-form");
+        const tableBody = document.getElementById("agenda-table-body");
+        const editForm = document.getElementById("edit-form");
+        const editModal = new bootstrap.Modal(document.getElementById('editModal'));
+
+        const populateDropdown = async (elementId, collection, field) => {
+            const dropdown = document.getElementById(elementId);
+            const snapshot = await collection.get();
+            snapshot.forEach(doc => {
+                const option = `<option value="${doc.id}">${doc.data()[field]}</option>`;
+                dropdown.insertAdjacentHTML('beforeend', option);
+            });
+        };
+
+        window.addEventListener('DOMContentLoaded', async () => {
+            await populateDropdown("create-evento", eventosCollection, "nombre");
+            await populateDropdown("edit-evento", eventosCollection, "nombre");
+            renderData();
+        });
+        
+        // CREATE
+        createForm.addEventListener("submit", async (e) => {
+            e.preventDefault();
+            await agendaCollection.add({
+                eventoId: createForm.evento.value,
+                actividad: createForm.actividad.value,
+                hora_inicio: createForm.hora_inicio.value,
+                hora_fin: createForm.hora_fin.value,
+                ubicacion: createForm.ubicacion.value,
+            });
+            createForm.reset();
+            location.reload();
+        });
+
+        // READ
+        const renderData = async () => {
+            const querySnapshot = await agendaCollection.get();
+            tableBody.innerHTML = '';
+            for (const doc of querySnapshot.docs) {
+                const data = doc.data();
+                const evento = await eventosCollection.doc(data.eventoId).get();
+
+                const tr = `
+                    <tr data-id="${doc.id}">
+                        <td>${evento.data().nombre}</td>
+                        <td>${data.actividad}</td>
+                        <td>${data.hora_inicio}</td>
+                        <td>${data.hora_fin}</td>
+                        <td>${data.ubicacion}</td>
+                        <td>
+                            <button class="btn btn-warning btn-sm edit-btn"><i class="fas fa-pencil-alt"></i></button>
+                            <button class="btn btn-danger btn-sm delete-btn"><i class="fas fa-trash"></i></button>
+                        </td>
+                    </tr>
+                `;
+                tableBody.insertAdjacentHTML('beforeend', tr);
+
+                const row = tableBody.querySelector(`[data-id="${doc.id}"]`);
+                row.querySelector(".edit-btn").addEventListener("click", () => {
+                    editForm.id.value = doc.id;
+                    editForm.evento.value = data.eventoId;
+                    editForm.actividad.value = data.actividad;
+                    editForm.hora_inicio.value = data.hora_inicio;
+                    editForm.hora_fin.value = data.hora_fin;
+                    editForm.ubicacion.value = data.ubicacion;
+                    editModal.show();
+                });
+
+                row.querySelector(".delete-btn").addEventListener("click", async () => {
+                    if(confirm("¿Seguro que quieres eliminar esta actividad?")) {
+                        await agendaCollection.doc(doc.id).delete();
+                        location.reload();
+                    }
+                });
+            }
+        };
+        
+        // UPDATE
+        editForm.addEventListener("submit", async (e) => {
+            e.preventDefault();
+            await agendaCollection.doc(editForm.id.value).update({
+                eventoId: editForm.evento.value,
+                actividad: editForm.actividad.value,
+                hora_inicio: editForm.hora_inicio.value,
+                hora_fin: editForm.hora_fin.value,
+                ubicacion: editForm.ubicacion.value,
+            });
+            editModal.hide();
+            location.reload();
+        });
+
+    </script>
+</body>
+</html>

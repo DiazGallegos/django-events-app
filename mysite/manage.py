@@ -3,9 +3,12 @@
 import os
 import sys
 
-
 def main():
     """Run administrative tasks."""
+    # Add the project's root directory to the Python path
+    sys.path.append(os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
+    # Add the 'mysite' directory to the Python path
+    sys.path.append(os.path.dirname(os.path.abspath(__file__)))
     os.environ.setdefault('DJANGO_SETTINGS_MODULE', 'mysite.settings')
     try:
         from django.core.management import execute_from_command_line

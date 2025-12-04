@@ -1,0 +1,41 @@
+{% extends 'base.html' %}
+
+{% block title %}Relaciones de Eventos y Patrocinadores{% endblock %}
+
+{% block content %}
+<div class="container">
+    <h1 class="my-4">Relaciones de Eventos y Patrocinadores</h1>
+    <a href="{% url 'evento_patrocinador_create' %}" class="btn btn-primary mb-3">Crear Nueva Relación</a>
+    <div class="table-responsive">
+        <table class="table table-bordered table-striped">
+            <thead class="table-dark">
+                <tr>
+                    <th>Evento</th>
+                    <th>Patrocinador</th>
+                    <th>Tipo de Patrocinio</th>
+                    <th>Fecha de Inicio</th>
+                    <th>Acciones</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for relacion in object_list %}
+                <tr>
+                    <td>{{ relacion.evento }}</td>
+                    <td>{{ relacion.patrocinador }}</td>
+                    <td>{{ relacion.get_tipo_patrocinio_display }}</td>
+                    <td>{{ relacion.fecha_inicio_patrocinio }}</td>
+                    <td>
+                        <a href="{% url 'evento_patrocinador_update' relacion.pk %}" class="btn btn-sm btn-info">Editar</a>
+                        <a href="{% url 'evento_patrocinador_delete' relacion.pk %}" class="btn btn-sm btn-danger">Eliminar</a>
+                    </td>
+                </tr>
+                {% empty %}
+                <tr>
+                    <td colspan="5" class="text-center">No hay relaciones de eventos y patrocinadores.</td>
+                </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+    </div>
+</div>
+{% endblock %}

@@ -1,0 +1,11 @@
+
+{% extends 'gestion_eventos/base.html' %}
+
+{% block content %}
+  <h2>Eliminar feedback de evento</h2>
+  <p>¿Estás seguro de que quieres eliminar el feedback de {{ object.id_participante.nombre }} para el evento {{ object.id_evento.nombre_evento }}?</p>
+  <form method="post">
+    {% csrf_token %}
+    <button type="submit">Confirmar</button>
+  </form>
+{% endblock %}

@@ -1,0 +1,60 @@
+
+{% extends 'base.html' %}
+
+{% block title %}Agenda de Eventos{% endblock %}
+
+{% block content %}
+<h1 class="h2">Gestión de Agenda de Eventos</h1>
+<p>Administra la agenda de los eventos.</p>
+
+<a href="{% url 'agenda_evento_crear' %}" class="btn btn-primary mb-3"><i class="fas fa-plus"></i> Crear Agenda de Evento</a>
+
+<div class="card">
+    <div class="card-header">
+        <h5 class="card-title">Listado de Agendas de Eventos</h5>
+    </div>
+    <div class="card-body">
+        <table class="table table-striped">
+            <thead>
+                <tr>
+                    <th>Evento</th>
+                    <th>Sesión</th>
+                    <th>Hora de Inicio</th>
+                    <th>Hora de Fin</th>
+                    <th>Acciones</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for agenda_evento in object_list %}
+                    <tr>
+                        <td>{{ agenda_evento.id_evento.nombre_evento }}</td>
+                        <td>{{ agenda_evento.nombre_sesion }}</td>
+                        <td>{{ agenda_evento.hora_inicio }}</td>
+                        <td>{{ agenda_evento.hora_fin }}</td>
+                        <td>
+                            <a href="{% url 'agenda_evento_editar' agenda_evento.pk %}" class="btn btn-warning btn-sm"><i class="fas fa-pencil-alt"></i></a>
+                            <a href="{% url 'agenda_evento_eliminar' agenda_evento.pk %}" class="btn btn-danger btn-sm"><i class="fas fa-trash"></i></a>
+                        </td>
+                    </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+
+        <nav aria-label="Page navigation">
+            <ul class="pagination">
+                {% if page_obj.has_previous %}
+                    <li class="page-item"><a class="page-link" href="?page=1">&laquo; primera</a></li>
+                    <li class="page-item"><a class="page-link" href="?page={{ page_obj.previous_page_number }}">anterior</a></li>
+                {% endif %}
+
+                <li class="page-item disabled"><a class="page-link" href="#">Página {{ page_obj.number }} de {{ page_obj.paginator.num_pages }}</a></li>
+
+                {% if page_obj.has_next %}
+                    <li class="page-item"><a class="page-link" href="?page={{ page_obj.next_page_number }}">siguiente</a></li>
+                    <li class="page-item"><a class="page-link" href="?page={{ page_obj.paginator.num_pages }}">última &raquo;</a></li>
+                {% endif %}
+            </ul>
+        </nav>
+    </div>
+</div>
+{% endblock %}

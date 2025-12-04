@@ -1,0 +1,39 @@
+
+{% extends 'base.html' %}
+
+{% block title %}Dashboard{% endblock %}
+
+{% block content %}
+<h1 class="h2">Dashboard</h1>
+<p>Bienvenido al sistema de gestión de eventos.</p>
+
+<div class="row">
+    <div class="col-md-4">
+        <div class="card">
+            <div class="card-body">
+                <h5 class="card-title">Eventos</h5>
+                <p class="card-text">Gestiona los eventos programados.</p>
+                <a href="{% url 'evento_list' %}" class="btn btn-primary">Ir a Eventos</a>
+            </div>
+        </div>
+    </div>
+    <div class="col-md-4">
+        <div class="card">
+            <div class="card-body">
+                <h5 class="card-title">Participantes</h5>
+                <p class="card-text">Gestiona los participantes registrados.</p>
+                <a href="{% url 'participante_list' %}" class="btn btn-primary">Ir a Participantes</a>
+            </div>
+        </div>
+    </div>
+    <div class="col-md-4">
+        <div class="card">
+            <div class="card-body">
+                <h5 class="card-title">Tickets</h5>
+                <p class="card-text">Gestiona los tickets vendidos.</p>
+                <a href="{% url 'ticket_list' %}" class="btn btn-primary">Ir a Tickets</a>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}
