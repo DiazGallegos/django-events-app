@@ -1,6 +1,7 @@
 # Django
 
 A Django starter template as per the docs: https://docs.djangoproject.com/en/5.0/intro/tutorial01/
+<img width="1884" height="959" alt="image" src="https://github.com/user-attachments/assets/49d895aa-7fcb-4cd8-9676-964b1b5088b0" />
 <img width="1677" height="583" alt="image" src="https://github.com/user-attachments/assets/4f8377b2-8883-4741-8d68-dfc2ca9580d5" />
 <img width="480" height="792" alt="image" src="https://github.com/user-attachments/assets/7d91ce0b-2cbc-4aea-8a04-6a4ad5726005" />
 <img width="1036" height="142" alt="image" src="https://github.com/user-attachments/assets/f052f153-1225-43aa-bd15-e5c956aba032" />
